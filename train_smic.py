@@ -126,8 +126,8 @@ def train_smic(batch_size, spatial_epochs, temporal_epochs, train_id):
 	root = "/home/viprlab/Documents/Micro-Expression/" + spatial_weights_name + "weights.{epoch:02d}-{val_loss:.2f}.hdf5"
 	root_temporal = "/home/viprlab/Documents/Micro-Expression/" + temporal_weights_name + "weights.{epoch:02d}-{val_loss:.2f}.hdf5"
 
-	model_checkpoint = keras.callbacks.ModelCheckpoint(root, monitor='loss', save_best_only=True, save_weights_only=True)
-	model_checkpoint_temporal = keras.callbacks.ModelCheckpoint(root_temporal, monitor='loss', save_best_only=True, save_weights_only=True)
+	model_checkpoint = tensorflow.keras.callbacks.ModelCheckpoint(root, monitor='loss', save_best_only=True, save_weights_only=True)
+	model_checkpoint_temporal = tensorflow.keras.callbacks.ModelCheckpoint(root_temporal, monitor='loss', save_best_only=True, save_weights_only=True)
 
 
 	########### Training Process ############
@@ -151,11 +151,11 @@ def train_smic(batch_size, spatial_epochs, temporal_epochs, train_id):
 		if tensorboard_flag == 1:
 			cat_path = tensorboard_path + str(sub) + "/"
 			os.mkdir(cat_path)
-			tbCallBack = keras.callbacks.TensorBoard(log_dir=cat_path, write_graph=True)
+			tbCallBack = tensorflow.keras.callbacks.TensorBoard(log_dir=cat_path, write_graph=True)
 
 			cat_path2 = tensorboard_path + str(sub) + "spat/"
 			os.mkdir(cat_path2)
-			tbCallBack2 = keras.callbacks.TensorBoard(log_dir=cat_path2, write_graph=True)
+			tbCallBack2 = tensorflow.keras.callbacks.TensorBoard(log_dir=cat_path2, write_graph=True)
 		#############################################
 
 		image_label_mapping = np.empty([0])

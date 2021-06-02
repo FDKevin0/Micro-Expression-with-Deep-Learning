@@ -33,7 +33,7 @@ from tensorflow.keras.callbacks import EarlyStopping
 from labelling import collectinglabel
 from reordering import readinput
 from evaluationmatrix import fpr, weighted_average_recall, unweighted_average_recall
-from utilities import Read_Input_Images, get_subfolders_num, standard_data_loader, label_matching, duplicate_channel
+from utilities import Read_Input_Images, data_loader_with_LOSO, get_subfolders_num, standard_data_loader, label_matching, duplicate_channel
 from utilities import record_scores, loading_smic_table, loading_casme_table, ignore_casme_samples, ignore_casmergb_samples, LossHistory
 from utilities import loading_samm_table, loading_casme_objective_table, filter_objective_samples
 from samm_utilitis import get_subfolders_num_crossdb, Read_Input_Images_SAMM_CASME, loading_samm_labels
@@ -250,11 +250,11 @@ def test_samm_cross(batch_size, spatial_epochs, temporal_epochs, train_id, dB, s
 	if tensorboard_flag == 1:
 		cat_path = tensorboard_path + str(sub) + "/"
 		os.mkdir(cat_path)
-		tbCallBack = keras.callbacks.TensorBoard(log_dir=cat_path, write_graph=True)
+		tbCallBack = tensorflow.keras.callbacks.TensorBoard(log_dir=cat_path, write_graph=True)
 
 		cat_path2 = tensorboard_path + str(sub) + "spat/"
 		os.mkdir(cat_path2)
-		tbCallBack2 = keras.callbacks.TensorBoard(log_dir=cat_path2, write_graph=True)
+		tbCallBack2 = tensorflow.keras.callbacks.TensorBoard(log_dir=cat_path2, write_graph=True)
 		#############################################
 
 	image_label_mapping = np.empty([0])

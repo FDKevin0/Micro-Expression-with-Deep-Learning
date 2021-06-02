@@ -13,7 +13,6 @@ from sklearn.svm import SVC
 from collections import Counter
 from sklearn.metrics import confusion_matrix
 import scipy.io as sio
-import pydot, graphviz
 from PIL import Image
 
 from tensorflow.keras.models import Sequential, Model

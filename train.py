@@ -51,7 +51,7 @@ from tensorflow.keras import backend as K
 
 def train(batch_size, spatial_epochs, temporal_epochs, train_id, list_dB, spatial_size, flag, objective_flag, tensorboard):
 	############## Path Preparation ######################
-	root_db_path = "/media/ice/OS/Datasets/"
+	root_db_path = "./Datasets/"
 	tensorboard_path = root_db_path + "tensorboard/"
 	if os.path.isdir(root_db_path + 'Weights/'+ str(train_id) ) == False:
 		os.mkdir(root_db_path + 'Weights/'+ str(train_id) )
