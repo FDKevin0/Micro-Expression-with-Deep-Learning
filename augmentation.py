@@ -1,6 +1,6 @@
-from keras.preprocessing.image import ImageDataGenerator  
-from keras.models import Sequential, Model
-from keras import metrics
+from tensorflow.keras.preprocessing.image import ImageDataGenerator  
+from tensorflow.keras.models import Sequential, Model
+from tensorflow.keras import metrics
 
 
 from reordering import readinput

@@ -17,15 +17,15 @@ from sklearn.metrics import confusion_matrix
 import scipy.io as sio
 
 
-from keras.models import Sequential, Model
-from keras.layers import LSTM, Dense, TimeDistributed
-from keras.utils import np_utils
-from keras import metrics
-from keras import backend as K
-from keras.models import model_from_json
-import keras
-import pydot, graphviz
-from keras.utils import np_utils, plot_model
+from tensorflow.keras.models import Sequential, Model
+from tensorflow.keras.layers import LSTM, Dense, TimeDistributed
+from tensorflow.keras import utils
+from tensorflow.keras import metrics
+from tensorflow.keras import backend as K
+from tensorflow.keras.models import model_from_json
+import tensorflow.keras
+# import pydot, graphviz
+from tensorflow.keras.utils import plot_model
 
 from labelling import collectinglabel
 from reordering import readinput
@@ -163,7 +163,7 @@ def standard_data_loader(SubjectPerDatabase, y_labels, subjects, classes):
 	############ Conversion to numpy and stacking ###############
 	Train_X=np.vstack(Train_X)
 	Train_Y=np.hstack(Train_Y)
-	Train_Y=np_utils.to_categorical(Train_Y, classes)
+	Train_Y=utils.to_categorical(Train_Y, classes)
 	#############################################################
 	# print ("Train_X_shape: " + str(np.shape(Train_X)))
 	# print ("Train_Y_shape: " + str(np.shape(Train_Y)))
@@ -178,7 +178,7 @@ def data_loader_with_LOSO(subject, SubjectPerDatabase, y_labels, subjects, class
 
 
 	Test_X = np.array(SubjectPerDatabase[subject])
-	Test_Y = np_utils.to_categorical(y_labels[subject], classes)
+	Test_Y = utils.to_categorical(y_labels[subject], classes)
 	Test_Y_gt = y_labels[subject]
 
 	########### Leave-One-Subject-Out ###############
@@ -203,7 +203,7 @@ def data_loader_with_LOSO(subject, SubjectPerDatabase, y_labels, subjects, class
 	############ Conversion to numpy and stacking ###############
 	Train_X=np.vstack(Train_X)
 	Train_Y=np.hstack(Train_Y)
-	Train_Y=np_utils.to_categorical(Train_Y, classes)
+	Train_Y=utils.to_categorical(Train_Y, classes)
 	#############################################################
 
 	return Train_X, Train_Y, Test_X, Test_Y, Test_Y_gt
@@ -431,7 +431,7 @@ def ignore_casmergb_samples(inputDir): # not a universal function, only specific
 
 	return listOfIgnoredSamples, IgnoredSamples_index	
 
-class LossHistory(keras.callbacks.Callback):
+class LossHistory(tensorflow.keras.callbacks.Callback):
 	def on_train_begin(self, logs={}):
 		self.losses = []
 		self.accuracy = []
@@ -528,7 +528,7 @@ def visualize_gradcam():
 
 	countcam = 0
 
-	for item_idx in range(len(predict)):
+	for item_idx in range(len(itertools.Predicate)):
 		# if predict[item_idx] == Test_Y_gt[item_idx]:
 		# 	test_gray = Test_X_gray[item_idx + countcam]
 

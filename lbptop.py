@@ -7,7 +7,7 @@ from sklearn.metrics import confusion_matrix
 from sklearn.externals import joblib
 from sklearn.model_selection import GridSearchCV
 import pickle
-from keras.utils import np_utils
+from tensorflow.keras import utils
 
 from evaluationmatrix import fpr, weighted_average_recall, unweighted_average_recall
 
@@ -27,7 +27,7 @@ def data_loader_LOSO(data, y_labels, subject, list_subjects):
 	test_X = np.array(data[subject])
 	test_y = y_labels[subject]
 	# print(len(data))
-	# test_y = np_utils.to_categorical(y_labels[subject], 5)
+	# test_y = utils.to_categorical(y_labels[subject], 5)
 	#######################
 	# print(len(data))
 	########### Leave-One-Subject-Out ###############

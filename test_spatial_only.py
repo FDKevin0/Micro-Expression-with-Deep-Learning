@@ -15,18 +15,18 @@ from sklearn.metrics import confusion_matrix
 import scipy.io as sio
 import pydot, graphviz
 
-from keras.models import Sequential, Model
-from keras.layers import LSTM, Dense, TimeDistributed, GlobalAveragePooling2D
-from keras.utils import np_utils, plot_model
-from keras import metrics
-from keras import backend as K
-from keras.models import model_from_json
-from keras.layers.core import Flatten, Dense, Dropout
-from keras.layers.convolutional import Conv2D, MaxPooling2D, ZeroPadding2D
-from keras.layers import LSTM
-from keras.preprocessing.sequence import pad_sequences
-from keras import optimizers
-import keras
+from tensorflow.keras.models import Sequential, Model
+from tensorflow.keras.layers import LSTM, Dense, TimeDistributed, GlobalAveragePooling2D
+from tensorflow.keras.utils import plot_model
+from tensorflow.keras import metrics
+from tensorflow.keras import backend as K
+from tensorflow.keras.models import model_from_json
+from tensorflow.keras.layers import Flatten, Dense, Dropout
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, ZeroPadding2D
+from tensorflow.keras.layers import LSTM
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+from tensorflow.keras import optimizers
+import tensorflow.keras
 
 import theano
 

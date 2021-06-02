@@ -13,14 +13,13 @@ from collections import Counter
 from sklearn.metrics import confusion_matrix
 import scipy.io as sio
 
-from keras.models import Sequential
-from keras.layers.core import Flatten, Dense, Dropout
-from keras.layers.convolutional import Conv2D, MaxPooling2D, ZeroPadding2D
-from keras.layers import LSTM, GlobalAveragePooling2D, GRU, Bidirectional, UpSampling2D
-from keras.optimizers import SGD
-import keras.backend as K
-from keras.callbacks import Callback
-from keras.engine.topology import Layer
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Flatten, Dense, Dropout
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, ZeroPadding2D
+from tensorflow.keras.layers import LSTM, GlobalAveragePooling2D, GRU, Bidirectional, UpSampling2D
+from tensorflow.keras.optimizers import SGD
+import tensorflow.keras.backend as K
+from tensorflow.keras.callbacks import Callback
 
 from labelling import collectinglabel
 from reordering import readinput

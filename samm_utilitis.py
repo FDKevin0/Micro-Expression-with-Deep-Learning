@@ -18,13 +18,11 @@ from sklearn.metrics import confusion_matrix
 import scipy.io as sio
 
 
-from keras.models import Sequential
-from keras.layers import LSTM, Dense, TimeDistributed
-from keras.utils import np_utils
-from keras import metrics
-from keras import backend as K
-from keras.models import model_from_json
-import keras
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import LSTM, Dense, TimeDistributed
+from tensorflow.keras import metrics
+from tensorflow.keras import backend as K
+from tensorflow.keras.models import model_from_json
 
 from labelling import collectinglabel
 from reordering import readinput

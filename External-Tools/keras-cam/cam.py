@@ -1,13 +1,13 @@
-from keras.models import *
-from keras.callbacks import *
-import keras.backend as K
+from tensorflow.keras.models import *
+from tensorflow.keras.callbacks import *
+import tensorflow.keras.backend as K
 from model import *
 from data import *
 import cv2
 import argparse
 
 import pydot, graphviz
-from keras.utils import np_utils, plot_model
+from tensorflow.keras.utils import plot_model
 
 def visualize_class_activation_map(model_path, img_path, output_path, run_count, write_to_file, post_processing):
 

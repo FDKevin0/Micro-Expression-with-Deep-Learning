@@ -1,21 +1,20 @@
-from keras.models import Sequential
-from keras.layers import Convolution2D, ZeroPadding2D, MaxPooling2D
-from keras.layers.core import Flatten, Dense, Dropout, Lambda
-from keras import backend as K
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Convolution2D, ZeroPadding2D, MaxPooling2D
+from tensorflow.keras.layers import Flatten, Dense, Dropout, Lambda
+from tensorflow.keras import backend as K
 import h5py
-from keras.optimizers import SGD
+from tensorflow.keras.optimizers import SGD
 
-from keras.models import Sequential
-from keras.layers.core import Flatten, Dense, Dropout
-from keras.layers.convolutional import Conv2D, MaxPooling2D, ZeroPadding2D
-from keras.layers import LSTM
-from keras.optimizers import SGD
-import keras.backend as K
-from keras.callbacks import Callback
-from keras import optimizers
-from keras import metrics
-from keras import backend as K
-from keras.layers import GlobalAveragePooling2D
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Flatten, Dense, Dropout
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, ZeroPadding2D
+from tensorflow.keras.layers import LSTM
+from tensorflow.keras.optimizers import SGD
+import tensorflow.keras.backend as K
+from tensorflow.keras.callbacks import Callback
+from tensorflow.keras import optimizers
+from tensorflow.keras import metrics
+from tensorflow.keras.layers import GlobalAveragePooling2D
 
 def VGG_16(weights_path=None):
 	model = Sequential()

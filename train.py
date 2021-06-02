@@ -14,23 +14,23 @@ from sklearn.svm import SVC
 from collections import Counter
 from sklearn.metrics import confusion_matrix
 import scipy.io as sio
-import pydot, graphviz
+# import pydot, graphviz
 from PIL import Image
 
 
-from keras.models import Sequential, Model
-from keras.utils import np_utils, plot_model
-from keras import metrics
-from keras import backend as K
-from keras.models import model_from_json
-from keras.layers import Dense, Dropout, Flatten, Activation, GlobalAveragePooling2D
-from keras.layers import Conv2D, MaxPooling2D
-from keras.preprocessing.sequence import pad_sequences
-from keras import optimizers
-from keras.applications.vgg16 import VGG16 as keras_vgg16
-from keras.preprocessing.image import ImageDataGenerator, array_to_img
-import keras
-from keras.callbacks import EarlyStopping
+from tensorflow.keras.models import Sequential, Model
+from tensorflow.keras.utils import plot_model
+from tensorflow.keras import backend, metrics
+from tensorflow.keras import backend as K
+from tensorflow.keras.models import model_from_json
+from tensorflow.keras.layers import Dense, Dropout, Flatten, Activation, GlobalAveragePooling2D
+from tensorflow.keras.layers import Conv2D, MaxPooling2D
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+from tensorflow.keras import optimizers
+from tensorflow.keras.applications.vgg16 import VGG16 as keras_vgg16
+from tensorflow.keras.preprocessing.image import ImageDataGenerator, array_to_img
+import tensorflow.keras
+from tensorflow.keras.callbacks import EarlyStopping
 
 from labelling import collectinglabel
 from reordering import readinput
@@ -44,7 +44,7 @@ from samm_utilitis import get_subfolders_num_crossdb, Read_Input_Images_SAMM_CAS
 from list_databases import load_db, restructure_data
 from models import VGG_16, temporal_module, VGG_16_4_channels, convolutional_autoencoder
 
-from keras import backend as K
+from tensorflow.keras import backend as K
 
 
 
@@ -275,11 +275,11 @@ def train(batch_size, spatial_epochs, temporal_epochs, train_id, list_dB, spatia
 		if tensorboard_flag == 1:
 			cat_path = tensorboard_path + str(sub) + "/"
 			os.mkdir(cat_path)
-			tbCallBack = keras.callbacks.TensorBoard(log_dir=cat_path, write_graph=True)
+			tbCallBack = tensorflow.keras.callbacks.TensorBoard(log_dir=cat_path, write_graph=True)
 
 			cat_path2 = tensorboard_path + str(sub) + "spatial/"
 			os.mkdir(cat_path2)
-			tbCallBack2 = keras.callbacks.TensorBoard(log_dir=cat_path2, write_graph=True)
+			tbCallBack2 = tensorflow.keras.callbacks.TensorBoard(log_dir=cat_path2, write_graph=True)
 		#############################################
 
 		Train_X, Train_Y, Test_X, Test_Y, Test_Y_gt, X, y, test_X, test_y = restructure_data(sub, SubperdB, labelperSub, subjects, n_exp, r, w, timesteps_TIM, channel)
@@ -304,8 +304,8 @@ def train(batch_size, spatial_epochs, temporal_epochs, train_id, list_dB, spatia
 			_, _, _, _, _, Train_X_Gray, Train_Y_Gray, Test_X_Gray, Test_Y_Gray = restructure_data(sub, SubperdB_gray, labelperSub, subjects, n_exp, r, w, timesteps_TIM, 1)
 
 			# Concatenate Train_X_Strain & Train_X & Train_X_gray
-			X = np.concatenate((X, Train_X_Strain, Train_X_gray), axis=1)
-			test_X = np.concatenate((test_X, Test_X_Strain, Test_X_gray), axis=1)	
+			X = np.concatenate((X, Train_X_Strain, Train_X_Gray), axis=1)
+			test_X = np.concatenate((test_X, Test_X_Strain, Test_X_Gray), axis=1)	
 
 			total_channel = 5		
 		

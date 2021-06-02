@@ -15,18 +15,19 @@ from sklearn.metrics import confusion_matrix
 import scipy.io as sio
 import pydot, graphviz
 
-from keras.models import Sequential, Model
-from keras.layers import LSTM, Dense, TimeDistributed
-from keras.utils import np_utils, plot_model
-from keras import metrics
-from keras import backend as K
-from keras.models import model_from_json
-from keras.layers import Dense, Dropout, Flatten, Activation
-from keras.layers import Conv2D, MaxPooling2D
-from keras.preprocessing.sequence import pad_sequences
-from keras import optimizers
-from keras.applications.vgg16 import VGG16 as keras_vgg16
-import keras
+from tensorflow.keras.models import Sequential, Model
+from tensorflow.keras.layers import LSTM, Dense, TimeDistributed
+from tensorflow.keras import utils
+from tensorflow.keras.utils import plot_model
+from tensorflow.keras import metrics
+from tensorflow.keras import backend as K
+from tensorflow.keras.models import model_from_json
+from tensorflow.keras.layers import Dense, Dropout, Flatten, Activation
+from tensorflow.keras.layers import Conv2D, MaxPooling2D
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+from tensorflow.keras import optimizers
+from tensorflow.keras.applications.vgg16 import VGG16 as keras_vgg16
+import tensorflow.keras
 
 from labelling import collectinglabel
 from reordering import readinput
