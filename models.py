@@ -1,29 +1,8 @@
-import numpy as np
-import sys
-import math
-import operator
-import csv
-import glob,os
-import xlrd
-import cv2
-import pandas as pd
-
-from sklearn.svm import SVC
-from collections import Counter
-from sklearn.metrics import confusion_matrix
-import scipy.io as sio
-
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Flatten, Dense, Dropout
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, ZeroPadding2D
-from tensorflow.keras.layers import LSTM, GlobalAveragePooling2D, GRU, Bidirectional, UpSampling2D
-from tensorflow.keras.optimizers import SGD
-import tensorflow.keras.backend as K
-from tensorflow.keras.callbacks import Callback
+from tensorflow.keras.layers import Flatten, Dense, Dropout
+from tensorflow.keras.layers import LSTM, UpSampling2D
+from tensorflow.keras.models import Sequential
 
-from labelling import collectinglabel
-from reordering import readinput
-from evaluationmatrix import fpr
 
 def VGG_16_4_channels(spatial_size, classes, channels, channel_first=True, weights_path=None):
 	model = Sequential()

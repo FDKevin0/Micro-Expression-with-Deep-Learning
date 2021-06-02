@@ -1,7 +1,7 @@
-import requests
-import json
 import base64
-import cv2
+
+import requests
+
 
 def face_landmarking(image):
 	key = ""   

@@ -1,15 +1,15 @@
 # import the necessary packages
-from imutils import face_utils
-import numpy as np
 import argparse
-import imutils
-import dlib
-import cv2
 import os
-import string
+
+import cv2
+import dlib
+import imutils
+import numpy as np
+from imutils import face_utils
+
 from faceplusplus import face_landmarking
-from PIL import Image
- 
+
 # construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
 ap.add_argument("-p", "--shape-predictor", required=True, help="path to facial landmark predictor")

@@ -1,39 +1,17 @@
-import numpy as np
-import sys
-import math
-import operator
 import csv
-import glob,os
+import os
+
+import numpy as np
 import xlrd
-import cv2
-import pandas as pd
-import matplotlib.pyplot as plt
-
-from sklearn.svm import SVC
-from collections import Counter
 from sklearn.metrics import confusion_matrix
-import scipy.io as sio
-import pydot, graphviz
-
-from tensorflow.keras.models import Sequential, Model
-from tensorflow.keras.layers import LSTM, Dense, TimeDistributed
-from tensorflow.keras.utils import plot_model
 from tensorflow.keras import metrics
-from tensorflow.keras import backend as K
-from tensorflow.keras.models import model_from_json
-from tensorflow.keras.layers import Dense, Dropout, Flatten, Activation
-from tensorflow.keras.layers import Conv2D, MaxPooling2D
-from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras import optimizers
-import tensorflow.keras
+from tensorflow.keras.layers import Dense
+from tensorflow.keras.layers import LSTM
+from tensorflow.keras.models import Sequential
 
-import theano
-
-from labelling import collectinglabel
-from reordering import readinput
 from evaluationmatrix import fpr
-from utilities import Read_Input_Images, get_subfolders_num, data_loader_with_LOSO, label_matching, duplicate_channel
-from models import VGG_16
+from utilities import Read_Input_Images, get_subfolders_num, data_loader_with_LOSO, label_matching
 
 ############## Path Preparation ######################
 dB = "CASME2_TIM"

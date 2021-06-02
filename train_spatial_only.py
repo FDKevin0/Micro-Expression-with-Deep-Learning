@@ -1,46 +1,20 @@
+import os
+
 import numpy as np
-import sys
-import math
-import operator
-import csv
-import glob,os
-import xlrd
-import cv2
-import pandas as pd
-import matplotlib.pyplot as plt
-
-from sklearn.svm import SVC
-from collections import Counter
 from sklearn.metrics import confusion_matrix
-import scipy.io as sio
-import pydot, graphviz
-from PIL import Image
-
-from tensorflow.keras.models import Sequential, Model
-from tensorflow.keras.utils import plot_model
+from sklearn.svm import SVC
 from tensorflow.keras import metrics
-from tensorflow.keras import backend as K
-from tensorflow.keras.models import model_from_json
-from tensorflow.keras.layers import Dense, Dropout, Flatten, Activation, GlobalAveragePooling2D
-from tensorflow.keras.layers import Conv2D, MaxPooling2D
-from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras import optimizers
-from tensorflow.keras.applications.vgg16 import VGG16 as keras_vgg16
-from tensorflow.keras.preprocessing.image import ImageDataGenerator, array_to_img
-import tensorflow.keras
 from tensorflow.keras.callbacks import EarlyStopping
 
-from labelling import collectinglabel
-from reordering import readinput
 from evaluationmatrix import fpr, weighted_average_recall, unweighted_average_recall
-from utilities import Read_Input_Images, get_subfolders_num, data_loader_with_LOSO, label_matching, duplicate_channel
-from utilities import loading_smic_table, loading_casme_table, loading_samm_table, ignore_casme_samples, ignore_casmergb_samples # data loading scripts
-from utilities import record_loss_accuracy, record_weights, record_scores, LossHistory # recording scripts
-from utilities import sanity_check_image, gpu_observer
-from samm_utilitis import get_subfolders_num_crossdb, Read_Input_Images_SAMM_CASME, loading_samm_labels
-
 from list_databases import load_db, restructure_data
 from models import VGG_16, temporal_module, VGG_16_4_channels, convolutional_autoencoder, VGG_16_tim
+from samm_utilitis import Read_Input_Images_SAMM_CASME
+from utilities import Read_Input_Images, label_matching
+from utilities import record_loss_accuracy, record_weights, record_scores, LossHistory  # recording scripts
+from utilities import sanity_check_image, gpu_observer
+
 
 def train_spatial_only(batch_size, spatial_epochs, temporal_epochs, train_id, list_dB, spatial_size, flag, objective_flag, tensorboard):
 	############## Path Preparation ######################

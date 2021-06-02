@@ -1,13 +1,8 @@
-import sklearn
-import os
-import pandas as pd
 import numpy as np
+import pandas as pd
 from sklearn import svm
-from sklearn.metrics import confusion_matrix
 from sklearn.externals import joblib
-from sklearn.model_selection import GridSearchCV
-import pickle
-from tensorflow.keras import utils
+from sklearn.metrics import confusion_matrix
 
 from evaluationmatrix import fpr, weighted_average_recall, unweighted_average_recall
 

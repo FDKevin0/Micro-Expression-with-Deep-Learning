@@ -1,10 +1,9 @@
-from subprocess import call, Popen, run
-import time
-import threading
 import queue
-import os
-from pynvml.pynvml import *
 import time
+from subprocess import run
+
+from pynvml.pynvml import *
+
 
 # start_time = time.time()
 # call(["python", "main.py", "--train=./train.py" , "--batch_size=10", "--spatial_epochs=100", "--temporal_epochs=100", "--train_id=default", "--dB=SAMM_CASME_Optical", "--spatial_size=224", "--flag=st"])

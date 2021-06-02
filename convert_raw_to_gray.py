@@ -1,6 +1,6 @@
-import cv2
 import os
-import shutil
+
+import cv2
 
 path_to_raw = "/media/ice/OS/Datasets/CASME2-RAW_images/CASME2-RAW/"
 

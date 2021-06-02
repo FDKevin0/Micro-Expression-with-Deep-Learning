@@ -1,6 +1,7 @@
-import pandas as pd
-import os, shutil
+import os
+import shutil
 
+import pandas as pd
 
 filepath = "/media/ice/OS/Datasets/CASME2_Cropped/"
 excelpath = "/media/ice/OS/Datasets/CASME2_label_Ver_2.xls"

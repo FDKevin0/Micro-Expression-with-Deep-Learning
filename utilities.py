@@ -1,38 +1,21 @@
-import numpy as np
-import sys
-import math
-import operator
 import csv
-import glob,os
-import xlrd
+import itertools
+
 import cv2
-import pandas as pd
-import os
-import glob
 import matplotlib.pyplot as plt
-
-from sklearn.svm import SVC
-from collections import Counter
-from sklearn.metrics import confusion_matrix
-import scipy.io as sio
-
-
-from tensorflow.keras.models import Sequential, Model
-from tensorflow.keras.layers import LSTM, Dense, TimeDistributed
-from tensorflow.keras import utils
-from tensorflow.keras import metrics
-from tensorflow.keras import backend as K
-from tensorflow.keras.models import model_from_json
+import numpy as np
+import pandas as pd
 import tensorflow.keras
+import xlrd
+from tensorflow.keras import utils
+from tensorflow.keras.models import Model
 # import pydot, graphviz
 from tensorflow.keras.utils import plot_model
 
-from labelling import collectinglabel
-from reordering import readinput
 from evaluationmatrix import fpr
-import itertools
+from labelling import collectinglabel
 from pynvml.pynvml import *
-
+from reordering import readinput
 
 
 def Read_Input_Images(inputDir, listOfIgnoredSamples, dB, resizedFlag, table, workplace, spatial_size, channel, objective_flag):

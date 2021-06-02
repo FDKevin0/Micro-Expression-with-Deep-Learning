@@ -1,32 +1,13 @@
-import numpy as np
-import sys
-import math
-import operator
-import csv
-import glob,os
-import xlrd
-import cv2
-import pandas as pd
 import os
-import glob
 from itertools import groupby
 
-
-from sklearn.svm import SVC
-from collections import Counter
-from sklearn.metrics import confusion_matrix
-import scipy.io as sio
-
-
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import LSTM, Dense, TimeDistributed
-from tensorflow.keras import metrics
-from tensorflow.keras import backend as K
-from tensorflow.keras.models import model_from_json
+import cv2
+import numpy as np
+import pandas as pd
 
 from labelling import collectinglabel
 from reordering import readinput
-from evaluationmatrix import fpr
+
 
 def Read_Input_Images_SAMM_CASME(inputDir, filteredSamples, ignoredSamples, dB, resizedFlag, table, workplace, spatial_size, channel, objective_flag):
 	# r=224; w=224

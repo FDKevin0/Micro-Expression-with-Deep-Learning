@@ -1,7 +1,5 @@
-from sklearn.metrics import confusion_matrix
 import pandas as pd
-import numpy as np
-
+from sklearn.metrics import confusion_matrix
 
 
 def cal_f1(gt, pred):

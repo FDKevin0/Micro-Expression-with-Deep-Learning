@@ -1,17 +1,13 @@
-import numpy as np
-import sys
-import math
-import operator
-import csv
-import glob,os
-import xlrd
-import pandas as pd
+import os
 
-from utilities import Read_Input_Images, get_subfolders_num, data_loader_with_LOSO, label_matching, duplicate_channel
-from utilities import record_scores, LossHistory, filter_objective_samples
-from utilities import loading_samm_table, loading_smic_table, loading_casme_table, ignore_casme_samples, ignore_casmergb_samples, loading_casme_objective_table
+import numpy as np
+
+from samm_utilitis import get_subfolders_num_crossdb
+from utilities import filter_objective_samples
+from utilities import get_subfolders_num, data_loader_with_LOSO
 from utilities import get_vid_per_subject
-from samm_utilitis import get_subfolders_num_crossdb, loading_samm_labels
+from utilities import loading_samm_table, loading_smic_table, loading_casme_table, ignore_casme_samples, \
+	loading_casme_objective_table
 
 
 def load_db(db_path, list_db, spatial_size, objective_flag):
