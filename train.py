@@ -26,19 +26,19 @@ def train(batch_size, spatial_epochs, temporal_epochs, train_id, list_dB, spatia
     ############## Path Preparation ######################
     root_db_path = "./Datasets/"
     tensorboard_path = root_db_path + "tensorboard/"
-    if os.path.isdir(root_db_path + 'Weights/' + str(train_id)) == False:
+    if not os.path.isdir(root_db_path + 'Weights/' + str(train_id)):
         os.mkdir(root_db_path + 'Weights/' + str(train_id))
 
     ######################################################
 
     ############## Variables ###################
     dB = list_dB[0]
-    r, w, subjects, samples, n_exp, VidPerSubject, timesteps_TIM, data_dim, channel, table, listOfIgnoredSamples, db_home, db_images, cross_db_flag = load_db(
+    r, w, subjects, samples, n_exp, vid_per_subject, timesteps_TIM, data_dim, channel, table, list_of_ignored_samples, db_home, db_images, cross_db_flag = load_db(
         root_db_path, list_dB, spatial_size, objective_flag)
 
     # avoid confusion
     if cross_db_flag == 1:
-        list_samples = listOfIgnoredSamples
+        list_samples = list_of_ignored_samples
 
     # total confusion matrix to be used in the computation of f1 score
     tot_mat = np.zeros((n_exp, n_exp))
@@ -54,17 +54,17 @@ def train(batch_size, spatial_epochs, temporal_epochs, train_id, list_dB, spatia
     train_spatial_flag = 0
     train_temporal_flag = 0
     svm_flag = 0
-    finetuning_flag = 0
+    fine_tuning_flag = 0
     cam_visualizer_flag = 0
     channel_flag = 0
 
     if flag == 'st':
         train_spatial_flag = 1
         train_temporal_flag = 1
-        finetuning_flag = 1
+        fine_tuning_flag = 1
     elif flag == 's':
         train_spatial_flag = 1
-        finetuning_flag = 1
+        fine_tuning_flag = 1
     elif flag == 't':
         train_temporal_flag = 1
     elif flag == 'nofine':
@@ -93,13 +93,13 @@ def train(batch_size, spatial_epochs, temporal_epochs, train_id, list_dB, spatia
 
     ############ Reading Images and Labels ################
     if cross_db_flag == 1:
-        SubperdB = Read_Input_Images_SAMM_CASME(db_images, list_samples, listOfIgnoredSamples, dB, resizedFlag, table,
+        SubperdB = Read_Input_Images_SAMM_CASME(db_images, list_samples, list_of_ignored_samples, dB, resizedFlag, table,
                                                 db_home, spatial_size, channel)
     else:
-        SubperdB = Read_Input_Images(db_images, listOfIgnoredSamples, dB, resizedFlag, table, db_home, spatial_size,
+        SubperdB = Read_Input_Images(db_images, list_of_ignored_samples, dB, resizedFlag, table, db_home, spatial_size,
                                      channel, objective_flag)
 
-    labelperSub = label_matching(db_home, dB, subjects, VidPerSubject)
+    label_per_sub = label_matching(db_home, dB, subjects, vid_per_subject)
     print("Loaded Images into the tray.")
     print("Loaded Labels into the tray.")
 
@@ -107,10 +107,10 @@ def train(batch_size, spatial_epochs, temporal_epochs, train_id, list_dB, spatia
         aux_db1 = list_dB[1]
         db_strain_img = root_db_path + aux_db1 + "/" + aux_db1 + "/"
         if cross_db_flag == 1:
-            SubperdB = Read_Input_Images_SAMM_CASME(db_strain_img, list_samples, listOfIgnoredSamples, aux_db1,
+            SubperdB = Read_Input_Images_SAMM_CASME(db_strain_img, list_samples, list_of_ignored_samples, aux_db1,
                                                     resizedFlag, table, db_home, spatial_size, 1)
         else:
-            SubperdB_strain = Read_Input_Images(db_strain_img, listOfIgnoredSamples, aux_db1, resizedFlag, table,
+            SubperdB_strain = Read_Input_Images(db_strain_img, list_of_ignored_samples, aux_db1, resizedFlag, table,
                                                 db_home, spatial_size, 1, objective_flag)
 
     elif channel_flag == 2:
@@ -119,24 +119,24 @@ def train(batch_size, spatial_epochs, temporal_epochs, train_id, list_dB, spatia
         db_strain_img = root_db_path + aux_db1 + "/" + aux_db1 + "/"
         db_gray_img = root_db_path + aux_db2 + "/" + aux_db2 + "/"
         if cross_db_flag == 1:
-            SubperdB_strain = Read_Input_Images_SAMM_CASME(db_strain_img, list_samples, listOfIgnoredSamples, aux_db1,
+            SubperdB_strain = Read_Input_Images_SAMM_CASME(db_strain_img, list_samples, list_of_ignored_samples, aux_db1,
                                                            resizedFlag, table, db_home, spatial_size, 1)
-            SubperdB_gray = Read_Input_Images_SAMM_CASME(db_gray_img, list_samples, listOfIgnoredSamples, aux_db2,
+            SubperdB_gray = Read_Input_Images_SAMM_CASME(db_gray_img, list_samples, list_of_ignored_samples, aux_db2,
                                                          resizedFlag, table, db_home, spatial_size, 1)
         else:
-            SubperdB_strain = Read_Input_Images(db_strain_img, listOfIgnoredSamples, aux_db1, resizedFlag, table,
+            SubperdB_strain = Read_Input_Images(db_strain_img, list_of_ignored_samples, aux_db1, resizedFlag, table,
                                                 db_home, spatial_size, 1, objective_flag)
-            SubperdB_gray = Read_Input_Images(db_gray_img, listOfIgnoredSamples, aux_db2, resizedFlag, table, db_home,
+            SubperdB_gray = Read_Input_Images(db_gray_img, list_of_ignored_samples, aux_db2, resizedFlag, table, db_home,
                                               spatial_size, 1, objective_flag)
 
     elif channel_flag == 3:
         aux_db1 = list_dB[1]
         db_strain_img = root_db_path + aux_db1 + "/" + aux_db1 + "/"
         if cross_db_flag == 1:
-            SubperdB = Read_Input_Images_SAMM_CASME(db_strain_img, list_samples, listOfIgnoredSamples, aux_db1,
+            SubperdB = Read_Input_Images_SAMM_CASME(db_strain_img, list_samples, list_of_ignored_samples, aux_db1,
                                                     resizedFlag, table, db_home, spatial_size, 3)
         else:
-            SubperdB_strain = Read_Input_Images(db_strain_img, listOfIgnoredSamples, aux_db1, resizedFlag, table,
+            SubperdB_strain = Read_Input_Images(db_strain_img, list_of_ignored_samples, aux_db1, resizedFlag, table,
                                                 db_home, spatial_size, 3, objective_flag)
 
     elif channel_flag == 4:
@@ -145,14 +145,14 @@ def train(batch_size, spatial_epochs, temporal_epochs, train_id, list_dB, spatia
         db_strain_img = root_db_path + aux_db1 + "/" + aux_db1 + "/"
         db_gray_img = root_db_path + aux_db2 + "/" + aux_db2 + "/"
         if cross_db_flag == 1:
-            SubperdB_strain = Read_Input_Images_SAMM_CASME(db_strain_img, list_samples, listOfIgnoredSamples, aux_db1,
+            SubperdB_strain = Read_Input_Images_SAMM_CASME(db_strain_img, list_samples, list_of_ignored_samples, aux_db1,
                                                            resizedFlag, table, db_home, spatial_size, 3)
-            SubperdB_gray = Read_Input_Images_SAMM_CASME(db_gray_img, list_samples, listOfIgnoredSamples, aux_db2,
+            SubperdB_gray = Read_Input_Images_SAMM_CASME(db_gray_img, list_samples, list_of_ignored_samples, aux_db2,
                                                          resizedFlag, table, db_home, spatial_size, 3)
         else:
-            SubperdB_strain = Read_Input_Images(db_strain_img, listOfIgnoredSamples, aux_db1, resizedFlag, table,
+            SubperdB_strain = Read_Input_Images(db_strain_img, list_of_ignored_samples, aux_db1, resizedFlag, table,
                                                 db_home, spatial_size, 3, objective_flag)
-            SubperdB_gray = Read_Input_Images(db_gray_img, listOfIgnoredSamples, aux_db2, resizedFlag, table, db_home,
+            SubperdB_gray = Read_Input_Images(db_gray_img, list_of_ignored_samples, aux_db2, resizedFlag, table, db_home,
                                               spatial_size, 3, objective_flag)
 
     #######################################################
@@ -205,7 +205,7 @@ def train(batch_size, spatial_epochs, temporal_epochs, train_id, list_dB, spatia
         if channel_flag == 1:
             vgg_model = VGG_16_4_channels(classes=n_exp, channels=4, spatial_size=spatial_size)
 
-            if finetuning_flag == 1:
+            if fine_tuning_flag == 1:
                 for layer in vgg_model.layers[:33]:
                     layer.trainable = False
 
@@ -214,7 +214,7 @@ def train(batch_size, spatial_epochs, temporal_epochs, train_id, list_dB, spatia
         elif channel_flag == 2:
             vgg_model = VGG_16_4_channels(classes=n_exp, channels=5, spatial_size=spatial_size)
 
-            if finetuning_flag == 1:
+            if fine_tuning_flag == 1:
                 for layer in vgg_model.layers[:33]:
                     layer.trainable = False
 
@@ -226,7 +226,7 @@ def train(batch_size, spatial_epochs, temporal_epochs, train_id, list_dB, spatia
             vgg_model_strain = VGG_16(spatial_size=spatial_size, classes=n_exp, channels=3,
                                       weights_path='VGG_Face_Deep_16.h5')
 
-            if finetuning_flag == 1:
+            if fine_tuning_flag == 1:
                 for layer in vgg_model.layers[:33]:
                     layer.trainable = False
                 for layer in vgg_model_strain.layers[:33]:
@@ -240,7 +240,7 @@ def train(batch_size, spatial_epochs, temporal_epochs, train_id, list_dB, spatia
                 vgg_model_gray = VGG_16(spatial_size=spatial_size, classes=n_exp, channels=3,
                                         weights_path='VGG_Face_Deep_16.h5')
 
-                if finetuning_flag == 1:
+                if fine_tuning_flag == 1:
                     for layer in vgg_model_gray.layers[:33]:
                         layer.trainable = False
 
@@ -250,7 +250,7 @@ def train(batch_size, spatial_epochs, temporal_epochs, train_id, list_dB, spatia
         else:
             vgg_model = VGG_16(spatial_size=spatial_size, classes=n_exp, channels=3, weights_path='VGG_Face_Deep_16.h5')
 
-            if finetuning_flag == 1:
+            if fine_tuning_flag == 1:
                 for layer in vgg_model.layers[:33]:
                     layer.trainable = False
 
@@ -270,7 +270,7 @@ def train(batch_size, spatial_epochs, temporal_epochs, train_id, list_dB, spatia
             tbCallBack2 = tensorflow.keras.callbacks.TensorBoard(log_dir=cat_path2, write_graph=True)
         #############################################
 
-        Train_X, Train_Y, Test_X, Test_Y, Test_Y_gt, X, y, test_X, test_y = restructure_data(sub, SubperdB, labelperSub,
+        Train_X, Train_Y, Test_X, Test_Y, Test_Y_gt, X, y, test_X, test_y = restructure_data(sub, SubperdB, label_per_sub,
                                                                                              subjects, n_exp, r, w,
                                                                                              timesteps_TIM, channel)
 
@@ -278,7 +278,7 @@ def train(batch_size, spatial_epochs, temporal_epochs, train_id, list_dB, spatia
         if channel_flag == 1:
             _, _, _, _, _, Train_X_Strain, Train_Y_Strain, Test_X_Strain, Test_Y_Strain = restructure_data(sub,
                                                                                                            SubperdB_strain,
-                                                                                                           labelperSub,
+                                                                                                           label_per_sub,
                                                                                                            subjects,
                                                                                                            n_exp, r, w,
                                                                                                            timesteps_TIM,
@@ -296,14 +296,14 @@ def train(batch_size, spatial_epochs, temporal_epochs, train_id, list_dB, spatia
         elif channel_flag == 2:
             _, _, _, _, _, Train_X_Strain, Train_Y_Strain, Test_X_Strain, Test_Y_Strain = restructure_data(sub,
                                                                                                            SubperdB_strain,
-                                                                                                           labelperSub,
+                                                                                                           label_per_sub,
                                                                                                            subjects,
                                                                                                            n_exp, r, w,
                                                                                                            timesteps_TIM,
                                                                                                            1)
 
             _, _, _, _, _, Train_X_Gray, Train_Y_Gray, Test_X_Gray, Test_Y_Gray = restructure_data(sub, SubperdB_gray,
-                                                                                                   labelperSub,
+                                                                                                   label_per_sub,
                                                                                                    subjects, n_exp, r,
                                                                                                    w, timesteps_TIM, 1)
 
@@ -316,7 +316,7 @@ def train(batch_size, spatial_epochs, temporal_epochs, train_id, list_dB, spatia
         elif channel_flag == 3:
             _, _, _, _, _, Train_X_Strain, Train_Y_Strain, Test_X_Strain, Test_Y_Strain = restructure_data(sub,
                                                                                                            SubperdB_strain,
-                                                                                                           labelperSub,
+                                                                                                           label_per_sub,
                                                                                                            subjects,
                                                                                                            n_exp, r, w,
                                                                                                            timesteps_TIM,
@@ -325,13 +325,13 @@ def train(batch_size, spatial_epochs, temporal_epochs, train_id, list_dB, spatia
         elif channel_flag == 4:
             _, _, _, _, _, Train_X_Strain, Train_Y_Strain, Test_X_Strain, Test_Y_Strain = restructure_data(sub,
                                                                                                            SubperdB_strain,
-                                                                                                           labelperSub,
+                                                                                                           label_per_sub,
                                                                                                            subjects,
                                                                                                            n_exp, r, w,
                                                                                                            timesteps_TIM,
                                                                                                            3)
             _, _, _, _, _, Train_X_Gray, Train_Y_Gray, Test_X_Gray, Test_Y_Gray = restructure_data(sub, SubperdB_gray,
-                                                                                                   labelperSub,
+                                                                                                   label_per_sub,
                                                                                                    subjects, n_exp, r,
                                                                                                    w, timesteps_TIM, 3)
 
